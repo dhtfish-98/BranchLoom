@@ -1,0 +1,68 @@
+# ---------------------------------------------------------------------------
+# branchloom — IP / target-artifact firewall
+#
+# This tool is target-agnostic. NOTHING binary- or target-specific belongs in
+# the repo. The patterns below keep challenge binaries, dumps, tables, traces,
+# IAT maps, known I/O vectors and any recovered secrets OUT of version control.
+# If you add a new artifact type, deny it here BEFORE the first commit.
+# ---------------------------------------------------------------------------
+
+# Target binaries / memory dumps (never commit someone else's binary)
+*.so
+*.bin
+*.elf
+*.a
+*.o
+*.axf
+*.dump
+*_dump*
+*.i64
+*.idb
+*.til
+*.nam
+*.id0
+*.id1
+*.id2
+
+# Serialized target memory / tables / keys
+*.pkl
+*.pickle
+segments*.pkl
+sbox.bin
+invbox.bin
+*_tables.json
+
+# Import maps and traces are per-binary — user-supplied at runtime
+iat.json
+traces/
+br_targets*.json
+*_trace*.json
+
+# Known I/O vectors / regression baselines are per-binary and may be secrets
+known_vectors*.json
+*_regress_result.json
+regress_result*.json
+out/
+input/
+
+# Local, non-shipped configs (keep profiles/neutral.yml only)
+profiles/*.yml
+!profiles/neutral.yml
+*.local.yml
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+dist/
+compile_probe/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Editor / OS
+.idea/
+.vscode/
+.DS_Store

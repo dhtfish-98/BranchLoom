@@ -1,0 +1,67 @@
+# branchloom example config; synthetic fixtures are also included in examples/.
+# All addresses are per-binary; leave empty/omit to auto-detect where supported.
+# Copy this file, fill it in for YOUR binary, and keep the copy OUT of git
+# .gitignore does not inspect the contents of tracked files.
+
+image:        "./input/libTARGET.so"       # on-disk source of PRISTINE bytes (single source of truth)
+reloc_image:  "./input/TARGET_dump_fix.bin" # optional: relocation-applied image for TABLE/GOT reads.
+                                            # Raw .so GOT/table entries are NOT relocated — do not trust
+                                            # them; a live dump (or a reloc-applied image) reads correctly.
+
+exec_segments:                             # selection is explicit; NEVER assume ".text"
+  - name: ".text"                          # by segment name, OR
+  # - range: [0x100000, 0x160000]          # by explicit [start, end)
+
+# ---- CFF instruction-pattern parameters (masks/scales/regs are data, not code) ----
+cff:
+  idx_table_scale: 2        # LSL #k for the int32 index table  (Family-A two-level)
+  tgt_table_scale: 3        # LSL #k for the uint64 target table
+  entry_size: 8             # dispatch-table entry width (bytes)
+  state_slot_bases: ["X29", "SP"]        # accepted state-slot base registers
+  index_reg_allowlist: []                # OPTIONAL heuristic; EMPTY = accept any reg
+                                         # (do NOT hard-code X8..X14 — that was a per-target guess)
+  scrambler:                             # OLLVM state scrambler; omit to auto-vote from handler tails
+    k_xor: null              # e.g. 0x70  (null => detect per-function)
+    k_add: null              # e.g. 0x46
+    interleave_tolerance: 64 # bytes of unrelated insns tolerated between LDUR..EOR..ADD..STUR
+  dispatch_base_overrides: {}            # last-resort per-fn base map, e.g. {"0x1234": "0x1625c0"}. EMPTY default.
+
+# ---- per-function jobs (the 'discover' driver can also auto-find these) ----
+jobs: []                    # e.g. - {fn: "0x1234", end: "0x1500", dispatch_base: null}
+
+# ---- trace source (feeds P3 cross-check + the single-target gate) ----
+trace:
+  source: "file"            # "file" | "command"
+  path:   "./traces/*.json" # trace files {token, sites:{br_pc:{target:count}}}
+  command: ""               # OR a command that emits the same JSON, e.g. "python run_trace.py --entry {entry}"
+
+# ---- verifier (behavioural oracle; reference impl = Unicorn, but pluggable) ----
+verifier:
+  backend: "unicorn"        # "unicorn" | "command"; "ondevice" is not implemented
+  command: ""               # for backend=command: run-on-IO, stdin=input bytes, stdout=output bytes
+  known_vectors: []         # USER-SUPPLIED I/O; synthetic sample vectors ship separately
+  entry: null               # emulation entry EA (required per run; no default address in code)
+  memory_layout:            # arbitrary-but-explicit; overridable
+    stack_base:  0x400000000
+    io_base:     0x500000000
+    input_ptr:   0x500000100
+    heap_base:   0x600000000
+    tls_base:    0x700000000
+    ret_magic:   0xDEADBEEFCAFE
+    canary:      0xCAFEBABE12345678
+    canary_off:  0x28
+  iat: "./input/iat.json"   # name->addr, dumped from the live DB (target-specific, user-supplied)
+  shims: ["memcpy", "memset", "malloc", "calloc", "realloc", "free", "strlen", "strcmp", "strncmp",
+          "__memcpy_chk", "__memset_chk", "__vsprintf_chk", "__vsnprintf_chk", "__stack_chk_fail"]
+                            # extensible registry, not a fixed list
+
+# ---- rewrite mode gate ----
+mode: "switch"              # "switch" (metadata only, unvalidated in live IDA) | "linear" | "full"
+strict_orig_check: true     # refuse to write unless current bytes == recorded orig (dangerous to disable)
+
+# ---- regression baselines (per-build; regenerate from YOUR neutral binary) ----
+regression:
+  baseline: {patched: 0, skipped: 0}      # validated counts; delta_skipped must be <= 0
+  skip_expectations: {}                   # reason -> [ea, ...]
+  samples: []                             # - {ea: "0x0", prefix: "B.NE", target: "0x0"}
+  result_path: "./out/regress_result.json"

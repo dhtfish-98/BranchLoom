@@ -1,0 +1,9 @@
+include README.md ORIGIN.md VALIDATION.md LICENSE pyproject.toml .gitignore .gitattributes
+include CHANGELOG.md IMPLEMENTATION_STATUS.md
+recursive-include branchloom *.py *.yml
+recursive-include checks *.py
+recursive-include utilities *.py
+recursive-include guides *.md
+recursive-include examples *.py *.c *.sh *.yml *.md
+recursive-include .github *.md *.yml
+global-exclude *.py[cod]

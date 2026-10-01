@@ -1,0 +1,31 @@
+# Example branchloom config for the routeprobe neutral sample.
+# Load librouteprobe.so in IDA, then run e.g.:  branchloom census --config branchloom.yml
+# (This file is illustrative — the per-load addresses below must be filled in once the
+#  binary is open in IDA; nothing here is target-secret.)
+
+image: "./librouteprobe.so"        # build with ./compile_probe.sh first (git-ignored artifact)
+
+exec_segments:
+  - name: ".text"
+
+cff:
+  idx_table_scale: 2             # idx_tbl is int32  -> LSL #2
+  tgt_table_scale: 3             # tgt_tbl is uint64 -> LSL #3
+  entry_size: 8
+  state_slot_bases: ["X29", "SP"]
+
+# routeprobe's tgt_tbl is materialised on the stack at -O2, so prefer trace/emulation
+# resolution over the static-table source for the second level.
+trace:
+  source: "file"
+  path: "./traces/*.json"
+
+verifier:
+  backend: "unicorn"
+  entry: null                    # TODO: address of `routeprobe` once loaded in IDA
+  known_vectors:
+    - in:  "756e666c61743634"    # "unflat64"  (from probe_reference.py)
+      out: "2f3b4a4b5751969f"
+
+mode: "switch"                   # metadata-only; live IDA behaviour remains unvalidated
+strict_orig_check: true

@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "branchloom"
+version = "0.2.0"
+description = "Experimental ARM64 control-flow-flattening and VM-dispatch analysis tooling for IDA Pro"
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+authors = [{ name = "bitfish886" }]
+keywords = ["arm64", "aarch64", "deobfuscation", "devirtualization", "cff", "ollvm", "ida", "reverse-engineering"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Topic :: Security",
+]
+
+# Core is dependency-free. The reference verifier backend needs unicorn;
+# YAML config needs pyyaml. Both are optional extras so the ISA + phase layer can
+# run inside IDA's bundled Python with no external installs.
+dependencies = []
+
+[project.optional-dependencies]
+config = ["pyyaml>=6.0"]
+verify = ["unicorn>=2.0"]
+dev = ["pytest>=7.0"]
+
+[project.scripts]
+branchloom = "branchloom.console:launch"
+
+[tool.setuptools.packages.find]
+include = ["branchloom*"]
+
+[tool.pytest.ini_options]
+testpaths = ["checks"]
+
+[tool.setuptools.package-data]
+branchloom = ["profiles/*.yml"]
