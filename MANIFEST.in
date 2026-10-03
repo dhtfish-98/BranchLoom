@@ -1,5 +1,5 @@
-include README.md ORIGIN.md VALIDATION.md LICENSE pyproject.toml .gitignore .gitattributes
-include CHANGELOG.md IMPLEMENTATION_STATUS.md
+include 项目文档/README.md 项目文档/ORIGIN.md 项目文档/VALIDATION.md 项目文档/LICENSE pyproject.toml .gitignore .gitattributes
+include 项目文档/CHANGELOG.md 项目文档/IMPLEMENTATION_STATUS.md
 recursive-include branchloom *.py *.yml
 recursive-include checks *.py
 recursive-include utilities *.py
@@ -7,3 +7,18 @@ recursive-include guides *.md
 recursive-include examples *.py *.c *.sh *.yml *.md
 recursive-include .github *.md *.yml
 global-exclude *.py[cod]
+
+# Directory layout: canonical docs and source build entry; generated trees are not sdist inputs.
+graft 项目文档
+include 构建.py 构建配置.json
+prune Build/源码
+prune Build/新构建
+prune Build/输出
+prune Build/环境
+prune Build/缓存
+prune Build/中间
+prune Build/临时
+global-exclude __pycache__ *.py[cod] .DS_Store
+
+# Original logical paths exist only in the staged compatibility view.
+include CHANGELOG.md IMPLEMENTATION_STATUS.md LICENSE ORIGIN.md README.md VALIDATION.md examples/routeprobe/README.md guides/CONFIG.md guides/METHODOLOGY.md guides/SAFETY.md guides/VALIDATION_STATUS.md guides/VERIFICATION.md

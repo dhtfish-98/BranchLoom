@@ -66,3 +66,10 @@ compile_probe/
 .idea/
 .vscode/
 .DS_Store
+
+# All generated build outputs and staging are local.
+!/Build/
+/Build/*
+!/Build/.gitignore
+__pycache__/
+*.py[cod]

@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "branchloom"
 version = "0.2.0"
 description = "Experimental ARM64 control-flow-flattening and VM-dispatch analysis tooling for IDA Pro"
-readme = "README.md"
+readme = "项目文档/README.md"
 requires-python = ">=3.9"
 license = { text = "MIT" }
 authors = [{ name = "bitfish886" }]
@@ -38,3 +38,6 @@ testpaths = ["checks"]
 
 [tool.setuptools.package-data]
 branchloom = ["profiles/*.yml"]
+
+[tool.setuptools]
+license-files = ["项目文档/LICENSE"]

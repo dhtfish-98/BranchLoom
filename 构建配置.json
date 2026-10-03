@@ -1,0 +1,72 @@
+{
+  "schema": "project-build-layout.v1",
+  "project": "BranchLoom",
+  "author": "dhtfish98",
+  "kind": "python",
+  "base_public_commit": "63540d7c432eb41513bbdab783681ebbb466edc7",
+  "restored_inputs": [
+    {
+      "original": "CHANGELOG.md",
+      "stored": "项目文档/CHANGELOG.md",
+      "sha256": "adf6e55bb4ce326694812decc7d8a9f3132ef06d320b66664935b21240646b48"
+    },
+    {
+      "original": "IMPLEMENTATION_STATUS.md",
+      "stored": "项目文档/IMPLEMENTATION_STATUS.md",
+      "sha256": "809fa481f63183a186e40b88f45179dfa1d784344f17968db669fbbb4d94ac2d"
+    },
+    {
+      "original": "LICENSE",
+      "stored": "项目文档/LICENSE",
+      "sha256": "1222daba2282bde89a613c36257d5a37dc642f914b59353e9c03bf1b2f5c53b4"
+    },
+    {
+      "original": "ORIGIN.md",
+      "stored": "项目文档/ORIGIN.md",
+      "sha256": "b3664a9c521cc36e72fd64d9cac600750895f2261ba44b2a1832adea3869460f"
+    },
+    {
+      "original": "README.md",
+      "stored": "项目文档/README.md",
+      "sha256": "294ed98b3daf4ec94c4d9a6bea13dbadcdeb62cdd49476c7bf7e7d0268e9037d"
+    },
+    {
+      "original": "VALIDATION.md",
+      "stored": "项目文档/VALIDATION.md",
+      "sha256": "b822dc6483cfb19f675b94dbe9f58dcf0cef6df8a735c12e2ff2a7fd92146252"
+    },
+    {
+      "original": "examples/routeprobe/README.md",
+      "stored": "项目文档/examples/routeprobe/README.md",
+      "sha256": "d6f4d876023681820d191b3acea68e53ccde47010acaceb4577138533333899c"
+    },
+    {
+      "original": "guides/CONFIG.md",
+      "stored": "项目文档/guides/CONFIG.md",
+      "sha256": "041341fbabd1468d20205062ae38c8e4bc067d7f65f74eedc861f3b06a2ad5a7"
+    },
+    {
+      "original": "guides/METHODOLOGY.md",
+      "stored": "项目文档/guides/METHODOLOGY.md",
+      "sha256": "e2227e27be07bf7b0d07f50ec171652a18bc51e0cd2aa79ac4b5b67a018731c3"
+    },
+    {
+      "original": "guides/SAFETY.md",
+      "stored": "项目文档/guides/SAFETY.md",
+      "sha256": "f48d217f45cec5de864264c450bf967fbc9f9547593a88a35e10e908f90ea33c"
+    },
+    {
+      "original": "guides/VALIDATION_STATUS.md",
+      "stored": "项目文档/guides/VALIDATION_STATUS.md",
+      "sha256": "0a0bb96fc645a1529ed2666b647756ecfddfb15bb3019cefe27a3dbf9b0d6f7f"
+    },
+    {
+      "original": "guides/VERIFICATION.md",
+      "stored": "项目文档/guides/VERIFICATION.md",
+      "sha256": "5f75cef887ce487106292c7a743980f0d76d4bd60a468b8b1206f00315b56493"
+    }
+  ],
+  "platform_entries": [
+    ".github/SECURITY.md"
+  ]
+}
