@@ -57,3 +57,14 @@ third-party targets. See `VALIDATION.md`, `ORIGIN.md` and `LICENSE`.
 
 Remaining implementation questions use `TODO(validate)` markers; the inventory
 retains 38 occurrences, including 33 in package code.
+
+
+## Current maintenance record
+
+The current package maintenance name is **dhtfish98**. This package author entry records the present maintenance period. Earlier package/release metadata and historical source-lineage records may retain `bitfish886`; those records are preserved for their original publication periods.
+
+Upstream attribution, third-party notices and licenses remain unchanged. This metadata update does not claim exclusive authorship of inherited material, alter runtime or tests, or change the package version.
+
+Previously recorded engineering issues remain unresolved; this metadata-only update does not claim to repair them.
+
+Actual task authorization, any effect of safeguards on that task, and CVP application eligibility remain **OPEN**. Package construction and existing engineering evidence do not establish CVP approval.

@@ -9,7 +9,7 @@ description = "Experimental ARM64 control-flow-flattening and VM-dispatch analys
 readme = "项目文档/README.md"
 requires-python = ">=3.9"
 license = { text = "MIT" }
-authors = [{ name = "bitfish886" }]
+authors = [{ name = "dhtfish98" }]
 keywords = ["arm64", "aarch64", "deobfuscation", "devirtualization", "cff", "ollvm", "ida", "reverse-engineering"]
 classifiers = [
     "Programming Language :: Python :: 3",
