@@ -2,7 +2,7 @@
 
 Target settings are supplied through YAML or JSON config files. The repository
 includes an example and a synthetic sample config, not private target data.
-Start from [`../branchloom/profiles/neutral.yml`](../branchloom/profiles/neutral.yml),
+Start from [`../branchloom/profiles/neutral.yml`](../../branchloom/profiles/neutral.yml),
 copy it, and keep private target settings **out of git**. `.gitignore` is not a
 content filter. The IDA pipeline and verifier integration have not been validated
 end to end; see [implementation status](../IMPLEMENTATION_STATUS.md).
