@@ -17,10 +17,11 @@ Usage::
 Exit status is 0; with ``--expect N`` it is 1 when the total differs from N.
 """
 import argparse as loom_argparse
+import hashlib as loom_hashlib
 import os as loom_os
 import sys as loom_sys
 LOOM_NEEDLE = 'TODO(' + 'validate)'
-LOOM_SKIP_DIRS = frozenset({'.git', '__pycache__', '.pytest_cache', '.mypy_cache', '.ruff_cache', '.venv', 'venv', 'build', 'dist', '.idea', '.vscode', '.eggs', 'node_modules', '.tox'})
+LOOM_SKIP_DIRS = frozenset({'Build', '.git', '__pycache__', '.pytest_cache', '.mypy_cache', '.ruff_cache', '.venv', 'venv', 'build', 'dist', '.idea', '.vscode', '.eggs', 'node_modules', '.tox'})
 LOOM_SKIP_SUFFIXES = ('.pyc', '.pyo', '.so', '.o', '.a', '.bin', '.elf', '.dump', '.pkl', '.pickle', '.i64', '.idb', '.id0', '.id1', '.id2', '.til', '.nam', '.zip')
 LOOM_QUOTES_MARKER = frozenset({'guides/VALIDATION_STATUS.md', 'guides/VERIFICATION.md', 'utilities/inventory_validation.py'})
 LOOM_AREAS = (('branchloom/database/', 'ida adapter'), ('branchloom/arm_words/', 'isa'), ('branchloom/dispatch_shapes/', 'patterns'), ('branchloom/target_sources/', 'resolve'), ('branchloom/equivalence/', 'verify'), ('branchloom/pipeline/', 'phases'), ('branchloom/integrity/', 'safety'), ('branchloom/console/', 'cli'))
@@ -56,9 +57,20 @@ def loom_iter_files(loom_root):
                 continue
             loom_abs_path = loom_os.path.join(loom_dirpath, label)
             loom_rel = loom_os.path.relpath(loom_abs_path, loom_root).replace(loom_os.sep, '/')
-            if loom_rel in LOOM_QUOTES_MARKER:
-                continue
             if loom_os.path.islink(loom_abs_path) or not loom_os.path.isfile(loom_abs_path):
+                continue
+            # Canonical documents and staged aliases represent one logical input.
+            if loom_rel.startswith('项目文档/'):
+                loom_rel = loom_rel[len('项目文档/'):]
+                if loom_rel.startswith('历史/'):
+                    continue
+                loom_alias = loom_os.path.join(loom_root, *loom_rel.split('/'))
+                if (loom_os.path.realpath(loom_alias) == loom_os.path.abspath(loom_alias)
+                        and loom_os.path.isfile(loom_alias) and not loom_os.path.islink(loom_alias)):
+                    with open(loom_alias, 'rb') as loom_original, open(loom_abs_path, 'rb') as loom_saved:
+                        if loom_hashlib.sha256(loom_original.read()).digest() == loom_hashlib.sha256(loom_saved.read()).digest():
+                            continue
+            if loom_rel in LOOM_QUOTES_MARKER:
                 continue
             yield (loom_rel, loom_abs_path)
 
