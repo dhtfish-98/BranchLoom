@@ -40,5 +40,5 @@ Python console.
 Reports of incorrect patches or failed restoration are welcome even while the
 pipeline is experimental. Include a minimal, shareable sample and the exact commit.
 Do not attach private target data, credentials or an untrusted executable dump to a
-public issue. See [implementation status](../IMPLEMENTATION_STATUS.md) and
-[safety limits](../guides/SAFETY.md) for what has and has not been checked.
+public issue. See [implementation status](../%E9%A1%B9%E7%9B%AE%E6%96%87%E6%A1%A3/IMPLEMENTATION_STATUS.md) and
+[safety limits](../%E9%A1%B9%E7%9B%AE%E6%96%87%E6%A1%A3/guides/SAFETY.md) for what has and has not been checked.
