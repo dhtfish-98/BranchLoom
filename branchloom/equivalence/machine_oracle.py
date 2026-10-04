@@ -257,6 +257,7 @@ class MachineOracle(BehaviorOracle):
         record.LOOM__TPIDR = None
         record.loom_heap_ptr = record.loom_heap_base
         record.loom_stop_reason: loom_Optional[str] = None
+        record.loom_reached_ret = False
 
     @classmethod
     def loom_register_shim(record_type, label: str, records) -> None:
@@ -531,6 +532,7 @@ class MachineOracle(BehaviorOracle):
 
     def loom_on_code(record, loom_uc_value, loom_address, span, loom_user_data):
         if loom_address == record.loom_ret_magic:
+            record.loom_reached_ret = True
             loom_uc_value.emu_stop()
             return
         label = record.loom_iat_by_addr.get(loom_address)
@@ -594,6 +596,7 @@ class MachineOracle(BehaviorOracle):
             raise RuntimeError('no entry address: pass entry to run_on_io or set verifier.entry')
         loom_mu = record.loom_ensure_emu()
         record.loom_stop_reason = None
+        record.loom_reached_ret = False
         record.loom_heap_ptr = record.loom_heap_base
         loom_mu.mem_write(record.loom_stack_base, b'\x00' * record.loom_stack_size)
         loom_mu.mem_write(record.loom_io_base, b'\x00' * record.loom_io_size)
@@ -614,6 +617,9 @@ class MachineOracle(BehaviorOracle):
             loom_mu.hook_del(loom_h)
         if record.loom_stop_reason:
             raise RuntimeError('emulation aborted: %s' % record.loom_stop_reason)
+        if not record.loom_reached_ret:
+            location = loom_mu.reg_read(record.LOOM__PC)
+            raise RuntimeError('emulation did not reach return sentinel %#x (pc=%#x)' % (record.loom_ret_magic, location))
         return record.loom_extract_output(loom_mu, loom_a64)
 
 # TODO(validate): the reference read a single pickle of segments dumped from

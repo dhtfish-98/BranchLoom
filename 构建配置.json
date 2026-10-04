@@ -8,12 +8,12 @@
     {
       "original": "CHANGELOG.md",
       "stored": "项目文档/CHANGELOG.md",
-      "sha256": "adf6e55bb4ce326694812decc7d8a9f3132ef06d320b66664935b21240646b48"
+      "sha256": "4922d2854efd2cf30097941c7bb6fb76d156fa4485a9a6c789a2479a75c0d18d"
     },
     {
       "original": "IMPLEMENTATION_STATUS.md",
       "stored": "项目文档/IMPLEMENTATION_STATUS.md",
-      "sha256": "809fa481f63183a186e40b88f45179dfa1d784344f17968db669fbbb4d94ac2d"
+      "sha256": "7a4fe735eb53f174897c7d0cbab7c2cd4eec066a329c7c5ed6d0d7f8fe50afb2"
     },
     {
       "original": "LICENSE",
@@ -23,17 +23,17 @@
     {
       "original": "ORIGIN.md",
       "stored": "项目文档/ORIGIN.md",
-      "sha256": "b3664a9c521cc36e72fd64d9cac600750895f2261ba44b2a1832adea3869460f"
+      "sha256": "345b49a92a61e501458df19cf1b25b928171733b96a6117014caee1cd8a00f87"
     },
     {
       "original": "README.md",
       "stored": "项目文档/README.md",
-      "sha256": "b50f2d5f9291292f770f1fac4b93a47eb6e775b4e3652446c339c3e4b98d4f59"
+      "sha256": "206af6040ee89378a4ede2876b136ec74c1e0d478a27e9df4b973a52499ebacf"
     },
     {
       "original": "VALIDATION.md",
       "stored": "项目文档/VALIDATION.md",
-      "sha256": "b822dc6483cfb19f675b94dbe9f58dcf0cef6df8a735c12e2ff2a7fd92146252"
+      "sha256": "2eb215819dcd106039bc83e701292142f70ea4a7ea6c84d026140e89ce5dffd9"
     },
     {
       "original": "examples/routeprobe/README.md",

@@ -23,8 +23,9 @@ Legend: ✅ implemented + tested · 🟡 implemented, needs IDA/on-target valida
 | `settings.py` | ✅ | YAML (PyYAML) or JSON config; validates segments + gates linear/full on a verifier — the gate is unit-tested |
 | `console/` | ✅ | argparse router over one command registry; wiring + write-intent rules unit-tested (the handlers themselves still need IDA) |
 
-**Tests: 92 cases, all passing** (`pytest -q` or `python checks/orchestrator.py`, which needs
-no pytest):
+**In the local 0.2.1 source checks, 94 cases pass with the optional Unicorn verifier
+installed** (`pytest -q`). The dependency-free runner executes the other 92 cases
+and passes without pytest or Unicorn. Exact-commit remote CI is a separate gate:
 
 | file | cases | covers |
 |------|-------|--------|
@@ -34,6 +35,7 @@ no pytest):
 | `checks/test_records.py` | 17 | JSON round-trip for all four inter-phase artifacts |
 | `checks/test_console.py` | 19 | command registry ↔ parser wiring, dry-run-wins, no `idaapi` at import |
 | `checks/test_commit_boundary.py` | 4 | real CLI/P5 with an in-memory adapter: default preview, rejected standalone writes, mode checks and switch failure propagation |
+| `checks/test_machine_oracle_completion.py` | 2 with Unicorn | synthetic AArch64 B-to-self must fail after the instruction budget; RET must pass; cached emulator completion resets between calls |
 
 ## The pipeline — implemented, needs live IDA validation
 
@@ -59,7 +61,7 @@ evidence that exists and what would close it.
 | `dispatch_shapes/filler_repair.py` | 🟡 | trap-BLR fold + dead-DCB NOP |
 | `target_sources/image_tables.py` · `observed_routes.py` · `oracle_routes.py` | 🟡 | the three resolution sources |
 | `equivalence/contracts.py` | 🟡 | the `evaluate_io(entry, input)->output` ABC |
-| `equivalence/machine_oracle.py` | 🟡 | reference Unicorn backend (config-driven memory layout + shim registry) |
+| `equivalence/machine_oracle.py` | 🟡 | reference Unicorn backend (config-driven memory layout + shim registry); return-sentinel completion gate has synthetic Unicorn regression coverage, but target behavior remains unvalidated |
 | `equivalence/batch_verdict.py` | 🟡 | batch verdict + oracle equivalence |
 | `integrity/clobber_scan.py` · `site_validation.py` · `image_restore.py` | 🟡 | SAFETY.md §4, §9, §10 |
 | `repair/boundary.py` · `eh_pads.py` | ⬜ | opt-in, off by default — not yet written |

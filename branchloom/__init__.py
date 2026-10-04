@@ -20,6 +20,6 @@ their own:
 Design rule: the code ships ZERO target addresses, ZERO binaries, ZERO known
 I/O vectors. Everything target-specific lives in a user-supplied YAML config.
 """
-__version__ = '0.1.0'
+__version__ = '0.2.1'
 
 __all__ = [export_binding for export_binding in [] if export_binding in globals()]

@@ -33,3 +33,18 @@ original emitters, word codec and logical-field decoder. Noninteger branch/word
 inputs retain the original bitwise TypeError instead of being silently skipped
 or producing a different exception. Source distributions include tests, guides,
 utilities, provenance and the synthetic sample.
+
+## 0.2.1 local checks (2026-10-04 UTC)
+
+The optional Unicorn verifier now requires its configured return sentinel before
+it reports output. Two new synthetic AArch64 integration tests cover a four-byte
+B-to-self instruction exhausting a 16-instruction budget, a four-byte RET reaching
+the sentinel, and a cached emulator rerun after a successful return. With Python
+3.14.6 and Unicorn 2.1.4, all 94 pytest cases pass; the dependency-free runner
+passes its 92 cases. The B-to-self CLI control returns `ok:false` with exit code 1;
+the RET control returns `ok:true` with exit code 0. The validation-marker inventory
+remains 38, and the 0.2.1 wheel and source distribution build locally.
+
+These checks use only self-created code bytes and do not establish real-target,
+patched-IDB, live-IDA, device or CVP outcomes. Remote CI and release assets need
+their own exact-commit and byte-identity evidence.

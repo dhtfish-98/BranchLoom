@@ -61,10 +61,21 @@ retains 38 occurrences, including 33 in package code.
 
 ## Current maintenance record
 
-The current package maintenance name is **dhtfish98**. This package author entry records the present maintenance period. Earlier package/release metadata and historical source-lineage records may retain `bitfish886`; those records are preserved for their original publication periods.
+This source tree is version **0.2.1**. Its package author entry names **dhtfish98** for the current maintenance
+period. Earlier publication and source-lineage records retain their historical
+names and dates.
 
-Upstream attribution, third-party notices and licenses remain unchanged. This metadata update does not claim exclusive authorship of inherited material, alter runtime or tests, or change the package version.
+Version 0.2.1 fixes the Unicorn verifier's completion check: exhausting an
+instruction budget without reaching the configured return sentinel now fails
+verification, even when an output register happens to match an expected vector.
+Synthetic AArch64 self-loop and RET controls pass under Unicorn; this does not
+validate a live IDB or arbitrary target.
 
-Previously recorded engineering issues remain unresolved; this metadata-only update does not claim to repair them.
+Upstream attribution, third-party MIT notices and licenses remain unchanged. The
+current author entry does not assert exclusive authorship of inherited material.
+Other recorded engineering issues, including patched-byte equivalence and the
+end-to-end restore/rerun gap, remain open.
 
-Actual task authorization, any effect of safeguards on that task, and CVP application eligibility remain **OPEN**. Package construction and existing engineering evidence do not establish CVP approval.
+Actual task authorization, any effect of safeguards on that task, and CVP
+application eligibility remain **OPEN**. Package construction and existing
+engineering evidence do not establish CVP approval.

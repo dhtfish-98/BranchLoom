@@ -1,19 +1,26 @@
 # Changelog
 
-## Unreleased
+## 0.2.1
 
 ### Fixes
 
+- Require the Unicorn verifier to reach its configured return sentinel before
+  extracting output. An instruction-budget-limited loop now fails verification
+  instead of passing when a register happens to match the expected bytes. Add
+  synthetic AArch64 B-to-self and RET controls, including a cached-emulator rerun.
 - Default phase calls to preview unless an explicit write is requested. Make the
   standalone `apply` CLI preview-only; byte changes use `run` with its verifier and
   rollback flow. P5 also rejects byte writes in switch mode or without vectors.
 - Report switch-phase exceptions as a failed run and return a nonzero exit code.
-- Add four in-memory regression cases (88 tests total); no live IDA validation.
+- Add four in-memory write-boundary regression cases (88 cases at that point);
+  no live IDA validation.
 - Remove remaining absolute-safety wording from errors and accept incorrect-patch
   reports consistently with the security policy.
 
 ### Documentation
 
+- Align the current package and module versions at 0.2.1; retain the v0.2.0
+  release history and original MIT source attribution.
 - Align config, methodology and security notes with the current verifier limits;
   document external command execution, pickle trust requirements and missing
   repair/on-device modules. Describe the package as experimental analysis tooling.
