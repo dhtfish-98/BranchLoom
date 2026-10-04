@@ -19,7 +19,7 @@ Work on a disposable copy of a database and keep an independent backup.
 ## Reporting
 
 Use GitHub's [private vulnerability
-reporting](https://github.com/dhtfish988/branchloom/security/advisories/new) for a
+reporting](https://github.com/dhtfish-98/BranchLoom/security/advisories/new) for a
 report that should not be public at first. Anything else can be a normal issue.
 
 Useful in a report: the commit, the IDA version for anything in the phase layer, the
